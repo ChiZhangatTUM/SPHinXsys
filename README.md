@@ -121,14 +121,30 @@ Here, we give the instructions for installing on Ubuntu Linux, Apple OS and Wind
                 $ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SIMBODY_HOME/lib' >> ~/.bashrc
                 $ echo 'export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$SIMBODY_HOME/include' >> ~/.bashrc
 
-3. Update and check environment setup before building SPHinXsys. The following commands should update the environment and report the corresponding paths.
+3. Install GoogleTesto on Ubunutu ( This is optional for google test):
+        $ sudo apt-get install libgtest-dev
+        Note that this package only install source files. You have to compile the code yourself to create the necessary library files. These source files should be located at /usr/src/gtest. Browse to this folder and use cmake to compile the library:
+        $ cd /usr/src/gtest/gtest
+        $ sudo mkdir build
+        $ cd build
+        $ sudo cmake ..
+        $ sudo make
+        $ sudo cp libgtest* /usr/lib/
+        $ cd ..
+        $ sudo rm -rf build
+        Then setup the linke
+        $ sudo mkdir /usr/local/lib/googletest
+        $ sudo ln -s /usr/lib/libgtest.a /usr/local/lib/googletest/libgtest.a
+        $ sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/googletest/libgtest_main.a
+
+4. Update and check environment setup before building SPHinXsys. The following commands should update the environment and report the corresponding paths.
 
         $ source ~/.bashrc
         $ echo $SIMBODY_HOME
         $ echo $TBB_HOME
         $ echo $BOOST_HOME
 
-4. Build SPHinXsys
+5. Build SPHinXsys
 
         Download the SPHinXsys from https://github.com/Xiangyu-Hu/SPHinXsys or Bitbucket if you have the link and password to the internal group repository for the newest version:
         $ git clone https://github.com/Xiangyu-Hu/SPHinXsys.git
@@ -146,7 +162,7 @@ Here, we give the instructions for installing on Ubuntu Linux, Apple OS and Wind
         $ cd /bin
         $ ./test_2d_dambreak
 
-5. Create and build your own application
+6. Create and build your own application
   
         Create your own application in the cases_user in the source folder simply by copying the entire folder of a similar test case and rename and modify application files
 
